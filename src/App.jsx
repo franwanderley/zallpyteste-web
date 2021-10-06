@@ -1,9 +1,13 @@
+import React from 'react';
+import Routes from './Routes';
+import { GlobalStyle } from './styles/global';
 
 function App() {
   console.log('sdsdsdsdsd');
   return (
     <div className="App">
-      <h1>Zallpy Challenge</h1>
+      <GlobalStyle/>
+      <Routes />
     </div>
   );
 }
