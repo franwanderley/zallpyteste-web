@@ -1,16 +1,16 @@
 import React from 'react';
 import { BtnClose, Container, Form, Overlay } from '../styles/modal';
 
-export function Modal(){
+export function Modal({setIsOpenModal}){
    return (
       <Overlay>
          <Container>
-            <BtnClose>X</BtnClose>
+            <BtnClose onClick={() => setIsOpenModal(false)}>x</BtnClose>
             <h3>Apontar Horas</h3>
             <Form>
                <form >
                   <div>
-                  <label htmlFor="">Funcionario: </label>
+                  <label htmlFor="funcionario">Funcionario: </label>
                   <input type="text" disabled id="funcionario" value="Francisco Wanderley" />
                   </div>
                   <div>

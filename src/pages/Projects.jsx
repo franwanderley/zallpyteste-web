@@ -1,12 +1,13 @@
-import React from 'react';
-import { Modal } from '../components/Modal';
+import React, { useState } from 'react';
 import { Sidebar } from '../components/Sidebar';
+import { Modal } from '../components/Modal';
 import { Container, Button, Hours, Project } from '../styles/project';
 
 export function Projects(){
+   const [isOpenModal, setIsOpenModal] = useState(false);
    return (
       <Container>
-         {/* <Modal/> */}
+         { isOpenModal && <Modal setIsOpenModal={setIsOpenModal} /> }
          <Sidebar/>
          <Project>
             <h2>Projetos cliente A</h2>
@@ -27,7 +28,7 @@ export function Projects(){
                   <li>06/10/2021 - Francisco Wanderley - 06 hours</li>
                </Hours>
                <div style={{width: 105}}>
-                  <Button>Lançar Horas</Button>
+                  <Button onClick={() => setIsOpenModal(true)}>Lançar Horas</Button>
                </div>
             </div>
                         
