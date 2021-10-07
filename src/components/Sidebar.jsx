@@ -16,11 +16,7 @@ export function Sidebar(){
                "authorization": user?.token
             }
          })
-         .then(res => setProjects(
-            res?.data?.filter(project => project.users.map(u => {
-               console.log([u.id, user.id]);
-            } ))
-         ))
+         .then(res => setProjects(res?.data))
          .catch(err => console.error(err));
       }
       getProjects();

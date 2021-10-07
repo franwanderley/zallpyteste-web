@@ -1,5 +1,7 @@
+import { format } from 'date-fns';
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { api } from '../services/api';
 import { BtnClose, Container, Form, Overlay } from '../styles/modal';
 
 export function Modal({setIsOpenModal}){
@@ -7,9 +9,24 @@ export function Modal({setIsOpenModal}){
    const [date, setDate] = useState();
    const [hours, setHours] = useState();
 
-   function handleSubmit(){
-      const data = {date, hours};
-      console.log(data);
+   async function handleSubmit(f){
+      f.preventDefault();
+      const data = {
+         date : format(new Date(date), 'dd/MM/yyyy'),
+         hours,
+         user: { id: user.id },
+         project: { id: projectSelected.id }
+      };
+      await api({
+         method: 'POST',
+         url: 'hours',
+         data,
+         headers: {
+            "authorization": user?.token,
+         }
+      });      
+
+      setIsOpenModal(false);
    }
 
    return (
@@ -20,8 +37,8 @@ export function Modal({setIsOpenModal}){
             <Form>
                <form onSubmit={handleSubmit}>
                   <div>
-                  <label htmlFor="funcionario">Funcionario: </label>
-                  <input type="text" disabled id="funcionario" value={user?.username} />
+                     <label htmlFor="funcionario">Funcionario: </label>
+                     <input type="text" disabled id="funcionario" value={user?.username} />
                   </div>
                   <div>
                      <label htmlFor="projeto">Projeto: </label>
