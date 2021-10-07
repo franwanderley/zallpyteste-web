@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { Modal } from '../components/Modal';
 import { Container, Button, Hours, Project } from '../styles/project';
+import { AuthContext } from '../context/AuthContext';
 
 export function Projects(){
+   const { projectSelected } = useContext(AuthContext);
    const [isOpenModal, setIsOpenModal] = useState(false);
+   if(!projectSelected){
+      return (
+         <Container>
+            <Sidebar/>
+            <h2 style={{justifySelf: 'left'}}>Escolha um Projeto</h2>
+         </Container>
+      );
+   }
    return (
       <Container>
          { isOpenModal && <Modal setIsOpenModal={setIsOpenModal} /> }
          <Sidebar/>
          <Project>
-            <h2>Projetos cliente A</h2>
-            <p>Criação do site do KD minha Oficina, onde o motorista poderá contratar oficinas,
-            fazer orçamento e muito mais.</p>
+            <h2>{projectSelected?.name}</h2>
+            <p>{projectSelected?.description}</p>
                <h3>Equipe</h3>
             <div>
-               <a href="mailto:wanderley4101@gmail.com">Francisco Wanderley</a>
+               {projectSelected?.users.map(user => (
+                  <a key={user?.id} href={`mailto:${user?.email}`}>{user?.name}</a>
+               ))}
                <a href="mailto:luisfelipe4101@gmail.com">Luis Felipe</a>
             </div>
             <div>

@@ -20,6 +20,7 @@ export function Login(){
             setUser({
                token: res.headers.authorization,
                username: email,
+               id: Number(res.headers.id)
             });
             history.push('projects');
          }

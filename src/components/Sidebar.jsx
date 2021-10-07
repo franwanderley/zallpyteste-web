@@ -4,13 +4,23 @@ import { api } from '../services/api';
 import { Container } from '../styles/sidebar';
 
 export function Sidebar(){
-   const { user, signOut } = useContext(AuthContext);
+   const { user, signOut, setProjectSelected } = useContext(AuthContext);
    const [projects, setProjects] = useState();
 
    useEffect(() => {
       async function getProjects(){
-         await api.get('/projects')
-         .then(res => setProjects(res.data))
+         await api({
+            method: 'GET',
+            url: '/projects',
+            headers: {
+               "authorization": user?.token
+            }
+         })
+         .then(res => setProjects(
+            res?.data?.filter(project => project.users.map(u => {
+               console.log([u.id, user.id]);
+            } ))
+         ))
          .catch(err => console.error(err));
       }
       getProjects();
@@ -20,7 +30,7 @@ export function Sidebar(){
          <img src="./zallpylogo.png" alt="logo da zallpy" />
          <div>
             {projects?.map(project => (
-               <a key={project.id} href="#">{project.name}</a>
+               <a key={project.id} onClick={() => setProjectSelected(project)} href="#">{project.name}</a>
             ))}
          </div>
          <div style={{flexDirection: 'row'}}>
