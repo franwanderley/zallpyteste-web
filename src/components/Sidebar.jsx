@@ -1,18 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { api } from '../services/api';
 import { Container } from '../styles/sidebar';
 
 export function Sidebar(){
+   const { user, signOut } = useContext(AuthContext);
+   const [projects, setProjects] = useState();
+
+   useEffect(() => {
+      async function getProjects(){
+         await api.get('/projects')
+         .then(res => setProjects(res.data))
+         .catch(err => console.error(err));
+      }
+      getProjects();
+   }, []);
    return (
       <Container>
          <img src="./zallpylogo.png" alt="logo da zallpy" />
          <div>
-            <a href="#">Projeto Cliente A</a>
-            <a href="#">Projeto Cliente B</a>
+            {projects?.map(project => (
+               <a key={project.id} href="#">{project.name}</a>
+            ))}
          </div>
          <div style={{flexDirection: 'row'}}>
-            <p style={{marginRight: 5}}>Wanderley</p>
-            <Link to="/" style={{marginBottom: 20}} >Sair</Link>
+            <p style={{marginRight: 5}}>{user.username?.split('@')[0]}</p>
+            <a href="" style={{marginBottom: 20}} onClick={signOut} >Sair</a>
 
          </div>
       </Container>

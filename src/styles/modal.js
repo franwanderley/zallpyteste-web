@@ -31,10 +31,10 @@ export const Container = styled.div`
 `;
 export const BtnClose = styled.button`
    position: absolute;
-   top: 4%;
+   top: 2%;
    right: 2%;
    background: transparent;
-   font-size: 20px;
+   font-size: 30px;
    font-weight: 400;
    border: none;
    cursor: pointer;
