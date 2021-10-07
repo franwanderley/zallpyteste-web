@@ -4,8 +4,9 @@ import { useHistory } from 'react-router';
 export const AuthContext = createContext();
 
 export function AuthProvider( children ){
-   const [user, setUser] = useState();
    const history = useHistory();
+   const [user, setUser] = useState();
+   const [projectSelected, setProjectSelected] = useState();  
 
    async function signOut(){
       setUser(null);
@@ -13,7 +14,7 @@ export function AuthProvider( children ){
    }
 
    return (
-      <AuthContext.Provider value={{signOut, user, setUser}} >
+      <AuthContext.Provider value={{signOut, user, setUser, projectSelected, setProjectSelected}} >
          {children.children}
       </AuthContext.Provider>
    );
