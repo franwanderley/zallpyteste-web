@@ -4,7 +4,7 @@ import { api } from '../services/api';
 import { Container } from '../styles/sidebar';
 
 export function Sidebar(){
-   const { user, signOut, setProjectSelected } = useContext(AuthContext);
+   const { user, signOut, setProjectSelected, projectSelected } = useContext(AuthContext);
    const [projects, setProjects] = useState();
 
    useEffect(() => {
@@ -26,7 +26,14 @@ export function Sidebar(){
          <img src="./zallpylogo.png" alt="logo da zallpy" />
          <div>
             {projects?.map(project => (
-               <a key={project.id} onClick={() => setProjectSelected(project)} href="#">{project.name}</a>
+               <a 
+                  key={project.id} 
+                  onClick={() => setProjectSelected(project)} 
+                  href="#"
+                  style={project?.id === projectSelected?.id ? {
+                     borderBottom: '1px solid #FAFAFF'
+                  }: {}}
+               >{project.name}</a>
             ))}
          </div>
          <div style={{flexDirection: 'row'}}>
