@@ -31,10 +31,10 @@ export function Projects(){
 
    if(!projectSelected){
       return (
-         <Container>
+         <div style={{display: 'flex', flexDirection: 'row'}}>
             <Sidebar/>
-            <h2 style={{justifySelf: 'left'}}>Escolha um Projeto</h2>
-         </Container>
+            <h2 style={{marginLeft: 50}}>Escolha um Projeto</h2>
+         </div>
       );
    }
    return (
