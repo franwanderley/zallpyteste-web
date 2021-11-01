@@ -9,10 +9,16 @@ export function Modal({setIsOpenModal}){
    const [date, setDate] = useState();
    const [hours, setHours] = useState();
 
+
    async function handleSubmit(f){
       f.preventDefault();
+      const yeah = Number(date?.split('-')[0]);
+      const month = Number(date?.split('-')[1]);
+      const day = Number(date?.split('-')[2]);
+      const dateFormat = format(new Date(yeah, month, day), 'dd/MM/yyyy');
+      console.log([dateFormat, hours]);
       const data = {
-         date : format(new Date(date), 'dd/MM/yyyy'),
+         date : dateFormat,
          hours,
          user: { id: user.id },
          project: { id: projectSelected.id }
@@ -26,7 +32,7 @@ export function Modal({setIsOpenModal}){
          }
       });      
 
-      setIsOpenModal(false);
+    setIsOpenModal(false);
    }
 
    return (
@@ -50,7 +56,7 @@ export function Modal({setIsOpenModal}){
                         <input 
                            type="date" 
                            id="data"
-                           onChange={e => setDate(e.target?.value)} 
+                           onChange={e => setDate(e.target.value)} 
                            required
                         />
                      </div>
