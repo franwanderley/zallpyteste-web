@@ -34,6 +34,11 @@ export function Modal({setIsOpenModal}){
 
     setIsOpenModal(false);
    }
+   function getTomorrow(){
+      const dateTomorrow = new Date();
+      dateTomorrow.setDate(dateTomorrow.getDate() +1);
+      return format(dateTomorrow, 'yyyy-MM-dd');
+   }
 
    return (
       <Overlay>
@@ -56,6 +61,7 @@ export function Modal({setIsOpenModal}){
                         <input 
                            type="date" 
                            id="data"
+                           max={getTomorrow}
                            onChange={e => setDate(e.target.value)} 
                            required
                         />

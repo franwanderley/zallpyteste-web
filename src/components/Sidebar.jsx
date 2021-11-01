@@ -35,7 +35,7 @@ export function Sidebar(){
             ))}
          </div>
          <div style={{flexDirection: 'row'}}>
-            <p style={{marginRight: 5}}>{user.username?.split('@')[0]}</p>
+            <p style={{marginRight: 5}}>{user?.username?.split('@')[0]}</p>
             <a href="" style={{marginBottom: 20}} onClick={signOut} >Sair</a>
 
          </div>

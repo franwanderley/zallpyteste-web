@@ -22,6 +22,11 @@ export function Login(){
                username: email,
                id: Number(res.headers.id)
             });
+            localStorage.setItem('zallpyteste/user', JSON.stringify({
+               id: Number(res.headers.id),
+               username: email,
+               token: res.headers.authorization,
+            }));
             history.push('projects');
          }
       })

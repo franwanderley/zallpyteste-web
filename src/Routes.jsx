@@ -6,13 +6,12 @@ import { Projects } from './pages/Projects';
 
 export default function Routes(){
    const { user } = useContext(AuthContext);
-
    return (
        <BrowserRouter>
           <Switch>
                <Route path="/" component={Login} exact />
                {user ? (
-                  <Route path="/projects" component={Projects}  exact />
+                  <Route path="/projects" component={Projects} exact />
                ): (
                   <Redirect to={{ pathname: '/' }} />
                )}
