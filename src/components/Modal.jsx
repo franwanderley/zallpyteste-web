@@ -4,22 +4,25 @@ import { AuthContext } from '../context/AuthContext';
 import { api } from '../services/api';
 import { BtnClose, Container, Form, Overlay } from '../styles/modal';
 
-export function Modal({setIsOpenModal}){
+export function Modal({setIsOpenModal, hours}){
    const { projectSelected, user  } = useContext(AuthContext);
    const [date, setDate] = useState();
-   const [hours, setHours] = useState();
+   const [hoursWorked, setHoursWorked] = useState();
 
 
    async function handleSubmit(f){
       f.preventDefault();
       const yeah = Number(date?.split('-')[0]);
-      const month = Number(date?.split('-')[1]);
+      const month = Number(date?.split('-')[1])-1;
       const day = Number(date?.split('-')[2]);
       const dateFormat = format(new Date(yeah, month, day), 'dd/MM/yyyy');
-      console.log([dateFormat, hours]);
+      if(hours?.find(h => h?.date === dateFormat && user?.username === h?.user?.email)){
+         alert('Hora já cadastrada!');
+         return;
+      }
       const data = {
          date : dateFormat,
-         hours,
+         hours: hoursWorked,
          user: { id: user.id },
          project: { id: projectSelected.id }
       };
@@ -34,11 +37,7 @@ export function Modal({setIsOpenModal}){
 
     setIsOpenModal(false);
    }
-   function getTomorrow(){
-      const dateTomorrow = new Date();
-      dateTomorrow.setDate(dateTomorrow.getDate() +1);
-      return format(dateTomorrow, 'yyyy-MM-dd');
-   }
+   const tomorrow = () => format(new Date(), 'yyyy-MM-dd')
 
    return (
       <Overlay>
@@ -61,7 +60,7 @@ export function Modal({setIsOpenModal}){
                         <input 
                            type="date" 
                            id="data"
-                           max={getTomorrow}
+                           max={tomorrow()}
                            onChange={e => setDate(e.target.value)} 
                            required
                         />
@@ -72,7 +71,7 @@ export function Modal({setIsOpenModal}){
                            type="number" 
                            id="horas" 
                            required
-                           onChange={e => setHours(e.target?.value)} 
+                           onChange={e => setHoursWorked(e.target?.value)} 
                            min={0} 
                         />
                      </div>

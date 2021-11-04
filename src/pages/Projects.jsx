@@ -12,7 +12,7 @@ export function Projects(){
 
    useEffect(() => {
       async function getHours(){
-         if(! projectSelected && isOpenModal){
+         if(!projectSelected || isOpenModal){
             return ;
          }
 
@@ -39,7 +39,7 @@ export function Projects(){
    }
    return (
       <Container>
-         { isOpenModal && <Modal setIsOpenModal={setIsOpenModal} /> }
+         { isOpenModal && <Modal {...{setIsOpenModal, hours}} /> }
          <Sidebar/>
          <Project>
             <h2>{projectSelected?.name}</h2>
