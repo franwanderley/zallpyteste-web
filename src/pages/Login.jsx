@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { api } from '../services/api';
-import { Button, Container, Form } from '../styles/login';
+import { Button, Container, DivForm, DivButton } from '../styles/login';
 
 export function Login(){
    const history = useHistory();
@@ -22,11 +23,6 @@ export function Login(){
                username: email,
                id: Number(res.headers.id)
             });
-            localStorage.setItem('zallpyteste/user', JSON.stringify({
-               id: Number(res.headers.id),
-               username: email,
-               token: res.headers.authorization,
-            }));
             history.push('projects');
          }
       })
@@ -36,7 +32,7 @@ export function Login(){
    return (
       <Container>
          <img src="./zallpylogo.png" alt="logo" />
-         <Form>
+         <DivForm>
             <h3>Entrar</h3>
             <form onSubmit={handleSubmit}>
                <div>
@@ -55,11 +51,12 @@ export function Login(){
                      onChange={({target}) => setPassword(target.value)}
                   />
                </div>
-               <div style={{display: 'flex', justifyContent: 'center'}}>
+               <DivButton>
                   <Button type="submit">Entrar</Button>
-               </div>
+                  <Link to="esqueceu-senha">Esqueçeu a Senha?</Link>
+               </DivButton>
             </form>
-         </Form>
+         </DivForm>
       </Container>
    );
 }
