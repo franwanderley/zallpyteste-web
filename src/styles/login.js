@@ -14,7 +14,7 @@ export const Container = styled.div`
    }
 `;
 
-export const Form = styled.div`
+export const DivForm = styled.div`
    border: 1px solid #28464B;
    padding: 20px;
    display: flex;
@@ -45,12 +45,21 @@ export const Form = styled.div`
       color: #28464B;
    }
 `;
+export const DivButton = styled.div`
+   display: flex;
+   flex-direction: column;
+   margin: 10px auto;
+   max-width: 50%;
+   text-align: center;
+   & a {
+      margin-top: 10px;
+   }
+`;
 
 export const Button = styled.button`
    color: #FAFAFF;
    border: none;
-   border-radius: 8px;
-   display: flex;
+   border-radius: 12px;
    cursor: pointer;
    background-color: #003459;
    padding: 10px 12px;
